@@ -25,7 +25,7 @@
                     <td>{{registration.kidClass}}</td>
                     <td>{{registration.phone}}</td>
                     <td>{{registration.email}}</td>
-                    <td></td>
+                    <td><button class="btn btn-danger" (click)="deleteRegistration(registration.id)">X</button></td>
                 </tr>
             </tbody>
         </table>
