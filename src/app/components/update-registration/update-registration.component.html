@@ -1,0 +1,69 @@
+<div class="alert alert-primary" role="alert" *ngIf="this.dataStatus == 'loading'">
+    Informacija kraunama...
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="this.dataStatus == 'failedLoad'">
+    Nepavyko užkrauti įrašo.
+</div>
+
+<div class="card" *ngIf="this.dataStatus == 'successLoad'">
+    <div class="card-header">Registruoti vaiką vasaros stovyklai</div>
+    <div class="card-body">
+        <form action="" (ngSubmit)="onSubmit()" #f="ngForm">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="" class="form-label">Vaiko vardas</label>
+                    <input type="text"  id="" class="form-control" ngModel name="name" required minlength="3" maxlength="15" #name="ngModel" [(ngModel)]="registration.name">
+                    <span class="form-text" *ngIf="!name.valid && name.touched">Vardas negali būti trumpesnis nei 3 simboliai ir ilgesnis nei 15.</span>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="" class="form-label">Vaiko pavardė</label>
+                    <input type="text"  id="" class="form-control" ngModel name="surname" required minlength="3" maxlength="15" #surname="ngModel" [(ngModel)]="registration.surname">
+                    <span class="form-text" *ngIf="!surname.valid && surname.touched">Pavardė negali būti trumpesnis nei 3 simboliai ir ilgesnis nei 15.</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="" class="form-label">Vaiko gimimo metai</label>
+                    <input type="number"  id="" class="form-control" ngModel name="birthYear" required AgeValidator [(ngModel)]="registration.birthYear">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="" class="form-label">Vaiko lytis:</label><br>
+                    <div class="form-check form-check-inline mt-1">
+                        <input class="form-check-input" type="radio" value="male" id="gender-male" name="gender" ngModel [checked]="registration.gender == 'male'">
+                        <label class="form-check-label" for="gender-male">Vyras</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" value="female" id="gender-female" name="gender" ngModel [checked]="registration.gender == 'female'">
+                        <label class="form-check-label" for="gender-female">Moteris</label>
+                      </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="" class="form-label">El. pašto adresas</label>
+                    <input type="text" id="" class="form-control" ngModel name="email" required minlength="10" email [(ngModel)]="registration.email">
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="" class="form-label">Telefonas</label>
+                    <input type="text" id="" class="form-control" ngModel name="phone" required minlength="10" maxlength="12" placeholder="+37060000000" #phone="ngModel" [(ngModel)]="registration.phone">
+                    <span class="form-text">Tel nr. privalo būti 10-12 simbolių.</span>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="" class="form-label">Klasė</label>
+                    <input type="number" id="" class="form-control" ngModel name="kidClass" required min="5" max="12" #kidClass="ngModel" [(ngModel)]="registration.kidClass">
+                    <span class="form-text">Tik 5-12 klasių mokiniai.</span>
+                </div>
+            </div> 
+            <button type="submit" class="btn btn-success" [disabled]="!f.valid">Išsaugoti!</button>
+            <a class="ms-2 btn btn-warning" [routerLink]="['/']">Atšaukti</a> 
+            
+        </form>
+        <div class="mt-4 alert alert-danger" role="alert" *ngIf="this.updateFailed == true">
+            Nepavyko užkrauti įrašo.
+        </div>    
+    </div>
+</div>
+
+
+<!-- *ngIf="!registration.phone.valid && registration.phone.touched" -->

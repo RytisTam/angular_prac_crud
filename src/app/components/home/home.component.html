@@ -1,4 +1,12 @@
-<div class="card">
+<div class="alert alert-primary" role="alert" *ngIf="this.dataStatus == 'loading'">
+    Informacija kraunama...
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="this.dataStatus == 'failedLoad'">
+    Nepavyko užkrauti įrašų.
+</div>
+
+<div class="card" *ngIf="this.dataStatus == 'successLoad'">
     <div class="card-header">
         Registracijų sąrašas
     </div>
@@ -25,7 +33,10 @@
                     <td>{{registration.kidClass}}</td>
                     <td>{{registration.phone}}</td>
                     <td>{{registration.email}}</td>
-                    <td><button class="btn btn-danger" (click)="deleteRegistration(registration.id)">X</button></td>
+                    <td>
+                        <a class="me-2 btn btn-warning" [routerLink]="['/update', registration.id]">Koreguoti</a> 
+                        <button class="btn btn-danger" (click)="deleteRegistration(registration.id)">Ištrinti</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

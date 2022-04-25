@@ -10,12 +10,19 @@ import { RegistrationService } from 'src/app/services/registration.service';
 export class HomeComponent implements OnInit {
 
   public registrations:Registration[]=[];
+  public dataStatus:String='loading';
 
   constructor(private registrationService:RegistrationService) { }
 
   private loadData(){
-    this.registrationService.getRegistrations().subscribe((response:Registration[])=>{
-      this.registrations = response;
+    this.registrationService.getRegistrations().subscribe({
+      next:(response:Registration[])=>{
+        this.registrations = response;
+        this.dataStatus = 'successLoad';
+      },
+      error:(error)=>{
+        this.dataStatus = 'failedLoad';
+      }
     })
   }
 
@@ -28,5 +35,6 @@ export class HomeComponent implements OnInit {
       this.loadData();
     })
   }
+  
 
 }
