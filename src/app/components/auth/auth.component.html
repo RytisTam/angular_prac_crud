@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3 col-xs-12">
+        <div class="card">
+            <div class="card-header">
+                Nauja registracija
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                    <div class="mb-3">
+                        <label for="" class="form-label">El. paštas</label>
+                        <input type="email" ngModel name="email" id="" class="form-control" #email="ngModel" email required>
+                        <span class="form-text" *ngIf="!email.valid && email.touched">Įveskit realų el. pašto adresą.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Slaptažodis</label>
+                        <input type="password" ngModel name="password" id="" class="form-control" #password="ngModel" minlength=6 required>
+                        <span class="form-text" *ngIf="!password.valid && password.touched && password.value.length < 6">Slaptažodis negali būti trumpesnis nei 6 simboliai.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Pakartokite slaptažodį</label>
+                        <input type="password" ngModel name="passwordRepeat" id="" class="form-control" #passwordRepeat="ngModel" pattern="{{ password.value }}" required>
+                        <span class="form-text" *ngIf="!passwordRepeat.valid && passwordRepeat.touched">Slaptažodžiai nesutampa.</span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success" [disabled]="!f.valid">Registruotis</button>
+                    </div>
+                </form>
+                <div class="mt-3 alert alert-success" role="alert" *ngIf="this.authSuccess == true">
+                    Vartotojas užregistruotas. <a [routerLink]="['/']">Prisijungti!</a>
+                </div> 
+                <div class="mt-3 alert alert-danger" role="alert" *ngIf="this.authSuccess == false">
+                    Nepavyko užregistruoti vartotojo.
+                </div>   
+            </div>
+            
+        </div>
+    </div>
+</div>
