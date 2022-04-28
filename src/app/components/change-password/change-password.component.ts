@@ -26,7 +26,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   public onSubmit(form:NgForm){
-    if (this.user){
     const password:String=form.value.password;
     console.log(this.isLoginMode);
 
@@ -40,5 +39,5 @@ export class ChangePasswordComponent implements OnInit {
         
       }
     })
-  }}
+  }
 }
