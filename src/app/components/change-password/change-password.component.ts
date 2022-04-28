@@ -27,11 +27,10 @@ export class ChangePasswordComponent implements OnInit {
 
   public onSubmit(form:NgForm){
     if (this.user){
-    const idToken:String=this.user.idToken;
     const password:String=form.value.password;
     console.log(this.isLoginMode);
 
-    this.auth.changePassword(idToken, password).subscribe({
+    this.auth.changePassword(password).subscribe({
       next:(response)=>{
         this.router.navigate(['/']);
       },

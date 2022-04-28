@@ -36,9 +36,9 @@ export class AuthService {
     return this.authAPICall(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.firebaseKey}`, email, password);
   }
 
-  public changePassword(idToken:String, password:String){
+  public changePassword(password:String){
     return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${this.firebaseKey}`,{
-      idToken:idToken,
+      idToken:this.user?.idToken,
       password:password,
       returnSecureToken:true
     }).pipe(tap((response)=>{
