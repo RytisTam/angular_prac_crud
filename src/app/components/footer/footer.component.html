@@ -1,0 +1,10 @@
+<div class="container fixed-bottom">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a routerLink="/" class="nav-link px-2 text-muted">Registracijų sąrašas</a></li>
+        <li class="nav-item"><a routerLink="/new" class="nav-link px-2 text-muted">Nauja registracija</a></li>
+      </ul>
+      <p *ngIf="!isLoggedIn" class="text-center text-muted">Dėmesio: Registracijas pridėti ir redaguoti gali tik prisijungę vartotojai</p>
+      <p *ngIf="isLoggedIn" class="text-center text-muted">Sveiki prisijungę prie registracijų sistemos. Sėkmingo darbo</p>
+    </footer>
+  </div>
