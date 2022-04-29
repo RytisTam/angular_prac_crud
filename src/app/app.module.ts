@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -12,6 +12,7 @@ import { UpdateRegistrationComponent } from './components/update-registration/up
 import { AuthComponent } from './components/auth/auth.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,11 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     HttpClientModule
     
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass:AuthInterceptor,
+    multi:true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
