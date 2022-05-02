@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registration-to-naturalist-club',
@@ -16,6 +16,7 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
       'surname':new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
       'email':new FormControl(null, [Validators.required, Validators.email]),
       'kidClass':new FormControl(null, [Validators.required, this.checkKidClass]),
+      'allergy':new FormArray([]),
     })
    }
 
@@ -35,4 +36,18 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
     }
   }
 
+  addAllergy(){
+    const input = new FormControl(null, Validators.required);
+    (<FormArray>this.naturalistRegistrationForm.get('allergy')).push(input);
+    // console.log(this.naturalistRegistrationForm.value.allergy)
+    
+  }
+
+  get allergies(){
+    return (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls;
+  }
+
+  deleteAllergy(){
+    console.log((<FormArray>this.naturalistRegistrationForm.get('allergy')).controls.pop());
+  }
 }

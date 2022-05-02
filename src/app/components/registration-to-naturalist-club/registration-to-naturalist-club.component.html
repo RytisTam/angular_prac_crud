@@ -22,6 +22,19 @@
                 <input type="string" class="form-control" formControlName="kidClass">
                 <span class="help-block" *ngIf="!naturalistRegistrationForm.get('kidClass')?.valid && naturalistRegistrationForm.get('kidClass')?.touched">Leistina vaiko klasė nuo 6 iki 12.</span>
             </div>
+            <hr>
+            <h4>Alergijos</h4>
+            <hr>
+            <button class="btn btn-primary mb-3" type="button" (click)="addAllergy()">Pridėti alergiją</button>
+            <div formArrayName="allergy">
+                <div class="mb-3" *ngFor="let alergyItem of allergies; let i = index">
+                    <div class="d-flex">
+                        <input type="text" class="me-2 form-control" [formControlName]="i">
+                    </div>
+                </div>
+                <a *ngIf="allergies.length > 0" class="btn btn-danger mb-2" type="button" (click)="deleteAllergy()">Ištrinti</a>
+
+            </div>
             <button class="btn btn-success" type="submit" [disabled]="!naturalistRegistrationForm.valid">Pridėti</button>
         </form>
     </div>
