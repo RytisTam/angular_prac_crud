@@ -48,6 +48,7 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
   }
 
   deleteAllergy(){
-    console.log((<FormArray>this.naturalistRegistrationForm.get('allergy')).controls.pop());
+    (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls.pop();
+    this.naturalistRegistrationForm.value.allergy.pop()
   }
 }
