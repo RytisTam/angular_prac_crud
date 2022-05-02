@@ -24,7 +24,8 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.naturalistRegistrationForm.value)
+    console.log(this.naturalistRegistrationForm.value);
+    (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls = [];
     this.naturalistRegistrationForm.reset()
   }
 
