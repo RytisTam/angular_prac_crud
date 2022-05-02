@@ -12,6 +12,9 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/new">Nauja registracija</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/new-club-registration">Registracija į gamtininkų būrelį</a>
+          </li>
         </ul>
         <div *ngIf="isLoggedIn" class="d-flex me-2">Jūs esate prisijungęs: {{user?.email}}</div>
         <a *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-primary d-flex">Prisijungti</a>

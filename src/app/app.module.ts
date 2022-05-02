@@ -6,13 +6,14 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HomeComponent } from './components/home/home.component';
 import { NewRegistrationComponent } from './components/new-registration/new-registration.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgeValidatorDirective } from './directives/age-validator.directive';
 import { UpdateRegistrationComponent } from './components/update-registration/update-registration.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RegistrationToNaturalistClubComponent } from './components/registration-to-naturalist-club/registration-to-naturalist-club.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,15 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     UpdateRegistrationComponent,
     AuthComponent,
     FooterComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    RegistrationToNaturalistClubComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
     
   ],
   providers: [{

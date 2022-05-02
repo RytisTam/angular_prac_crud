@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-header">Registracija į gamtininkų stovyklą</div>
+    <div class="card-body">
+        <form [formGroup]="naturalistRegistrationForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="" class="form-label">Vardas</label>
+                <input type="text" formControlName="name" class="form-control">
+                <span class="help-block" *ngIf="!naturalistRegistrationForm.get('name')?.valid && naturalistRegistrationForm.get('name')?.touched">Vardas yra privalomas ir turi būti nuo 3 iki 16 simbolių.</span>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Pavardė</label>
+                <input type="text" formControlName="surname" class="form-control">
+                <span class="help-block" *ngIf="!naturalistRegistrationForm.get('surname')?.valid && naturalistRegistrationForm.get('surname')?.touched">Pavardė yra privaloma ir turi būti nuo 3 iki 16 simbolių.</span>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">El. pašto adresas</label>
+                <input type="string" class="form-control" formControlName="email">
+                <span class="help-block" *ngIf="!naturalistRegistrationForm.get('email')?.valid && naturalistRegistrationForm.get('email')?.touched">Įveskite realų el. pašto adresą.</span>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Vaiko klasė</label>
+                <input type="string" class="form-control" formControlName="kidClass">
+                <span class="help-block" *ngIf="!naturalistRegistrationForm.get('kidClass')?.valid && naturalistRegistrationForm.get('kidClass')?.touched">Leistina vaiko klasė nuo 6 iki 12.</span>
+            </div>
+            <button class="btn btn-success" type="submit" [disabled]="!naturalistRegistrationForm.valid">Pridėti</button>
+        </form>
+    </div>
+</div>
