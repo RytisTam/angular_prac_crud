@@ -33,9 +33,33 @@
                     </div>
                 </div>
                 <a *ngIf="allergies.length > 0" class="btn btn-danger mb-2" type="button" (click)="deleteAllergy()">Ištrinti</a>
-
             </div>
-            <button class="btn btn-success" type="submit" [disabled]="!naturalistRegistrationForm.valid">Pridėti</button>
+            <hr>
+            <h4>Ankščiau lankyti būreliai</h4>
+                <button type="button" class="btn btn-primary mb-3" (click)="addPastActivity()">Pridėti būrelį</button>
+                <div formArrayName="pastActivity">
+                    <div *ngFor="let activity of pastActivities; let i = index">
+                        <div class="row mb-3" [formGroup]="toFormGroup(activity)">
+                            <div class="col-md-3">
+                                <label class="form-label">Metai</label>
+                                <input type="number" class="form-control" formControlName="year">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Pavadinimas</label>
+                                <input type="text" class="form-control" formControlName="title">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Būrelis</label>
+                                <select class="form-select" formControlName="activityType">
+                                    <option value="sporto">Sporto</option>
+                                    <option value="meno">Meno</option>
+                                    <option value="mokslo">Mokslo</option>
+                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <button class="btn btn-success" type="submit" [disabled]="!naturalistRegistrationForm.valid">Registruoti</button>
         </form>
     </div>
 </div>

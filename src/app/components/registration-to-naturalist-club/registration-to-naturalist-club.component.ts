@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NaturalistFormData } from 'src/app/models/NaturalistData';
+import { NaturalistRegistrationService } from 'src/app/services/naturalist-registration.service';
+
+
 
 @Component({
   selector: 'app-registration-to-naturalist-club',
@@ -10,13 +14,14 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
 
   public naturalistRegistrationForm:FormGroup;
 
-  constructor() {
+  constructor(private naturalistRegistrationService:NaturalistRegistrationService) {
     this.naturalistRegistrationForm = new FormGroup({
       'name':new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
       'surname':new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
       'email':new FormControl(null, [Validators.required, Validators.email]),
       'kidClass':new FormControl(null, [Validators.required, this.checkKidClass]),
       'allergy':new FormArray([]),
+      'pastActivity':new FormArray([]),
     })
    }
 
@@ -24,7 +29,19 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.naturalistRegistrationForm.value);
+    const registration = {
+      name:this.naturalistRegistrationForm.value.name,
+      surname:this.naturalistRegistrationForm.value.surname,
+      email:this.naturalistRegistrationForm.value.email,
+      kidClass:this.naturalistRegistrationForm.value.kidClass,
+      allergy:this.naturalistRegistrationForm.value.allergy,
+      pastActivity:this.naturalistRegistrationForm.value.pastActivity,
+    } as NaturalistFormData
+
+    this.naturalistRegistrationService.addNaturalistRegistration(registration).subscribe((response)=>{
+      console.log(response)
+    });
+
     (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls = [];
     this.naturalistRegistrationForm.reset()
   }
@@ -40,16 +57,32 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
   addAllergy(){
     const input = new FormControl(null, Validators.required);
     (<FormArray>this.naturalistRegistrationForm.get('allergy')).push(input);
-    // console.log(this.naturalistRegistrationForm.value.allergy)
-    
+    // console.log(this.naturalistRegistrationForm.value.allergy) 
+  }
+
+  addPastActivity(){
+    const activity = new FormGroup({
+      year:new FormControl(null, Validators.required),
+      title:new FormControl(null, Validators.required),
+      activityType:new FormControl(null, Validators.required),
+    });
+    (<FormArray>this.naturalistRegistrationForm.get('pastActivity')).push(activity)
   }
 
   get allergies(){
     return (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls;
   }
 
+  get pastActivities(){
+    return (<FormArray>this.naturalistRegistrationForm.get('pastActivity')).controls;
+  }
+
   deleteAllergy(){
     (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls.pop();
     this.naturalistRegistrationForm.value.allergy.pop()
+  }
+
+  toFormGroup(element:AbstractControl):FormGroup{
+    return <FormGroup>element;
   }
 }
