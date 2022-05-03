@@ -4,7 +4,7 @@ export interface NaturalistFormData{
     email:String,
     kidClass:number,
     allergy?:Array<String>,
-    pastActivity?:Array<String>,
+    pastActivity?:Array<pastActivityObj>,
     
 }
 
