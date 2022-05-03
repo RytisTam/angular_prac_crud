@@ -39,11 +39,10 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
     } as NaturalistFormData
 
     this.naturalistRegistrationService.addNaturalistRegistration(registration).subscribe((response)=>{
-      console.log(response)
+      (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls = [];
+    this.naturalistRegistrationForm.reset()
     });
 
-    (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls = [];
-    this.naturalistRegistrationForm.reset()
   }
 
   checkKidClass(control:FormControl):{[s:string]:boolean}|null {
