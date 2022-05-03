@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-header">Vaikų stovyklos registracijos</div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Vardas</th>
+                    <th>Pavardė</th>
+                    <th>El. paštas</th>
+                    <th>Vaiko klasė</th>
+                    <th>Alergijos</th>
+                    <th>Praeitos veiklos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entry of naturalistRegistrations">
+                    <td>{{entry.name}}</td>
+                    <td>{{entry.surname}}</td>
+                    <td>{{entry.email}}</td>
+                    <td>{{entry.kidClass}}</td>
+                    <td><div *ngFor="let allergy of entry.allergy">{{allergy}}</div></td>
+                    <td><div *ngFor="let activity of entry.pastActivity">{{activity.year}}, {{activity.title}}, {{activity.activityType}}</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
