@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators, AsyncValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NaturalistFormData } from 'src/app/models/NaturalistData';
 import { NaturalistRegistrationService } from 'src/app/services/naturalist-registration.service';
 
@@ -20,6 +22,7 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
       'surname':new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(16)]),
       'email':new FormControl(null, [Validators.required, Validators.email]),
       'kidClass':new FormControl(null, [Validators.required, this.checkKidClass]),
+      'coupon':new FormControl(null, Validators.required, this.couponInDatabase()),
       'allergy':new FormArray([]),
       'pastActivity':new FormArray([]),
     })
@@ -42,6 +45,10 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
       (<FormArray>this.naturalistRegistrationForm.get('allergy')).controls = [];
     this.naturalistRegistrationForm.reset()
     });
+
+    this.naturalistRegistrationService.disableCoupon(this.naturalistRegistrationForm.value.coupon).subscribe((response)=>{
+      console.log(response);
+    })
 
   }
 
@@ -84,4 +91,17 @@ export class RegistrationToNaturalistClubComponent implements OnInit {
   toFormGroup(element:AbstractControl):FormGroup{
     return <FormGroup>element;
   }
+
+  couponInDatabase():AsyncValidatorFn{
+    return (control:AbstractControl):Observable<ValidationErrors|null> => {
+      return this.naturalistRegistrationService.isCouponAvailable(control.value).pipe(map((response)=>{
+        if(response==true){
+          return null;
+        } else {
+          return {"Kuponas neegzistuoja":true}
+        }
+      }))
+    }
+  }
+
 }

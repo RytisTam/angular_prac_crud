@@ -26,6 +26,22 @@ export class NaturalistRegistrationService {
     }))
   }
 
+  public isCouponAvailable(coupon:String){
+    return this.http.get<number|null>(`${this.url}/coupons/${coupon}.json`).pipe( map((response)=> {
+      if (response==null){
+        return false;
+      } else {
+        return true;
+      }
+    }));
+   }
+
+  public disableCoupon(coupon:String){
+    return this.http.patch(`${this.url}/coupons.json`, {
+      [coupon as string]:0,
+    })
+  }
+
 }
 
 

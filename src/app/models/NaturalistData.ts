@@ -6,5 +6,5 @@ export interface NaturalistFormData{
     kidClass:number,
     allergy?:String[],
     pastActivity?:[{year:Number, title:String, activityType:String}],
-    
+    coupon?:String    
 }
